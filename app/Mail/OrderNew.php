@@ -31,7 +31,8 @@ class OrderNew extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            from: new Address('fireballtestmail@yandex.ru', 'Test Service'),
+            //from: new Address('fireballtestmail@yandex.ru', 'Test Service'),
+            from: new Address(config('mail.from.address'), config('mail.from.name')),
             subject: 'Answer for your question',
         );
     }

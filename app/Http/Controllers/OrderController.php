@@ -63,8 +63,8 @@ class OrderController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request/*, string $id*/)
-    {
+    public function update(Request $request)
+    { var_dump(config('mail.from.address'), config('mail.from.name'));
         $order = Order::where('id', $request->id)->first();
         $order->comment = $request->comment;
         $order->status = $request->status;        
