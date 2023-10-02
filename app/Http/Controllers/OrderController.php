@@ -17,16 +17,8 @@ class OrderController extends Controller
         if ($filter == 'active') $orders = Order::where('status', 'Active')->get();
         elseif ($filter == 'resolved') $orders = Order::where('status', 'Resolved')->get();
         elseif ($filter == 'choose_date') $orders = Order::whereBetween('created_at', [$_GET['choose_date'].' 00:00:00', $_GET['choose_date'].' 23:59:59'])->get();
-        else $orders = Order::all();
+        else $orders = Order::paginate(10);
         return view('orders.list')->with('orders', $orders);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create(Request $request)
-    {
-        //
     }
 
     /**
@@ -34,6 +26,12 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
+        $validated = $request->validate([
+            'name' => 'required|max:255',
+            'email' => 'required',
+            'message' => 'required',
+        ]);
+
         $order = new Order();
         $order->user_id = auth()->user()->id;
         $order->name = $request->name;
@@ -41,14 +39,6 @@ class OrderController extends Controller
         $order->message = $request->message;
         $order->save();        
         return redirect()->route('dashboard')->with('success','Order successfully stored');
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
     }
 
     /**
@@ -64,7 +54,14 @@ class OrderController extends Controller
      * Update the specified resource in storage.
      */
     public function update(Request $request)
-    { var_dump(config('mail.from.address'), config('mail.from.name'));
+    {
+        $validated = $request->validate([
+            'name' => 'required|max:255',
+            'email' => 'required',
+            'message' => 'required',
+            'comment' => 'required',
+        ]);
+
         $order = Order::where('id', $request->id)->first();
         $order->comment = $request->comment;
         $order->status = $request->status;        

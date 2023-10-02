@@ -14,19 +14,19 @@
                     @csrf
                         <div class="mb-6">
                             <x-input-label for="name" :value="__('Name')" />
-                            <x-text-input id="name" name="name" type="text" class="mt-1 block w-full" :value="old('name', $order->name)" disabled required autofocus autocomplete="name" />
+                            <x-text-input id="name" name="name" type="text" class="mt-1 block w-full" :value="old('name', $order->name)"  required autofocus autocomplete="name" />
                             <x-input-error class="mt-2" :messages="$errors->get('name')" />
                         </div>
 
                         <div class="mb-6">
                             <x-input-label for="email" :value="__('Email')" />
-                            <x-text-input id="email" name="email" type="email" class="mt-1 block w-full" :value="old('name', $order->email)" disabled autofocus autocomplete="email" />
+                            <x-text-input id="email" name="email" type="email" class="mt-1 block w-full" :value="old('name', $order->email)"  autofocus autocomplete="email" />
                             <x-input-error class="mt-2" :messages="$errors->get('email')" />
                         </div>
 
                         <div class="mb-6">
                             <x-input-label for="message" :value="__('Message')" />
-                            <x-text-input id="message" name="message" type="text" class="mt-1 block w-full h-24" :value="old('name', $order->message)" disabled required autofocus autocomplete="message" />
+                            <x-text-input id="message" name="message" type="text" class="mt-1 block w-full h-24" :value="old('name', $order->message)"  required autofocus autocomplete="message" />
                             <x-input-error class="mt-2" :messages="$errors->get('message')" />
                         </div>
 

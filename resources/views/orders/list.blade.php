@@ -75,6 +75,7 @@
                                 </tr>
                             @endforeach
                         </table>
+                        {{ $orders->links() }}
 
                         @if(session('success'))
                         <div class="alert alert-success text-green-900">
