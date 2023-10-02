@@ -14,9 +14,9 @@ class OrderController extends Controller
      */
     public function index($filter = '')
     {
-        if ($filter == 'active') $orders = Order::where('status', 'Active')->get();
-        elseif ($filter == 'resolved') $orders = Order::where('status', 'Resolved')->get();
-        elseif ($filter == 'choose_date') $orders = Order::whereBetween('created_at', [$_GET['choose_date'].' 00:00:00', $_GET['choose_date'].' 23:59:59'])->get();
+        if ($filter == 'active') $orders = Order::where('status', 'Active')->paginate(10);
+        elseif ($filter == 'resolved') $orders = Order::where('status', 'Resolved')->paginate(10);
+        elseif ($filter == 'choose_date') $orders = Order::whereBetween('created_at', [$_GET['choose_date'].' 00:00:00', $_GET['choose_date'].' 23:59:59'])->paginate(10);
         else $orders = Order::paginate(10);
         return view('orders.list')->with('orders', $orders);
     }
@@ -44,7 +44,7 @@ class OrderController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(int $id)
     {
         $order = Order::where('id', $id)->first();
         return view('orders.edit')->with('order', $order);
@@ -77,7 +77,7 @@ class OrderController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(int $id)
     {     
         Order::destroy($id);      
         return $this->index();
